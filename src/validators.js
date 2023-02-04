@@ -17,6 +17,10 @@ export const colorValidator = value => value ? "" : "Color is required.";
 export const requiredValidator = value => value ? "" : "Error: This field is required.";
 export const passwordValidator = value => value && value.length > 8 ? '' : 'Password must be at least 8 symbols.';
 export const addressValidator = value => value ? "" : "Address is required.";
+export const petNameValidator = value => value ? "" : "Pet Name is required.";
+export const petAgeValidator = value => value !== 0 && !value ? "Pet Age is required." : value < 0 ? "Pet Age should be a positive number." : "";
+export const petBreedValidator = value => value ? "" : "Pet Breed is required.";
+export const petWeightValidator = value => value !== 0 && !value ? "Pet Weight is required." : value <= 0 ? "Pet Weight should be greater than 0" : "";
 const userNameGetter = getter('username');
 const emailGetter = getter('email');
 export const formValidator = values => {
