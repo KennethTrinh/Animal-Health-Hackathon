@@ -1,5 +1,6 @@
 {
   "name": "animal-health-hackathon",
+  "homepage": "https://kennethtrinh.github.io/Animal-Health-Hackathon/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
