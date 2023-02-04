@@ -3,9 +3,6 @@ import logo from './logo.svg';
 import InteractiveChart from './InteractiveChart.js';
 import { dog_breeds } from './Data';
 
-
-// import Data from './Data';
-
 function Home() {
   return (
     <div className="App">
