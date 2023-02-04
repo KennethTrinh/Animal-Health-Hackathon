@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Field } from '@progress/kendo-react-form';
 import { FormInput, FormAutoComplete, FormRadioGroup, FormTextArea } from './form-components';
 import { nameValidator, requiredValidator } from './validators';
-import { countries, genders } from './data';
+import { countries, genders } from './form-data';
 export const PersonalDetails = <div>
     <Field key={'fullName'} id={'fullName'} name={'fullName'} label={'Full Name'} component={FormInput} validator={nameValidator} />
     <Field key={'countryselected'} id={'countryselected'} name={'countryselected'} label={'Country'} hint={'Hint: Only European countries'} component={FormAutoComplete} data={countries} validator={requiredValidator} />
