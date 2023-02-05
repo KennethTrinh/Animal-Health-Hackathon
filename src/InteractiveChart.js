@@ -1,7 +1,16 @@
 import React from "react";
 import { Chart } from "react-google-charts";
 import { useState, useEffect, useRef } from "react";
+// import QRCode from "qrcode"
 
+// var qrcode = new QRCode("test", {
+//   text: "http://jindo.dev.naver.com/collie",
+//   width: 128,
+//   height: 128,
+//   colorDark: "#000000",
+//   colorLight: "#ffffff",
+//   correctLevel: QRCode.CorrectLevel.H
+// });
 
 const InteractiveChart = (props) => {
   let [data, setData] = useState([]);
@@ -96,6 +105,8 @@ const InteractiveChart = (props) => {
       )
     }
   </>
+
 }
 
 export default InteractiveChart;
+
