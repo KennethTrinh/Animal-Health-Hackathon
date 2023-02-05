@@ -1,22 +1,11 @@
 import React from "react";
 import { Chart } from "react-google-charts";
 import { useState, useEffect, useRef } from "react";
-import { findAllByTestId } from "@testing-library/react";
-
 
 
 const InteractiveChart = (props) => {
-    
-    const [protein, setProtien] = useState(props.diet.protein.quantity.reduce((a, b) => a + b )); //11
-    const [carbs, setCarbs] = useState(props.diet.carbs.quantity.reduce((a, b) => a + b ));
-    const [fat, setFat] = useState(props.diet.fat.quantity.reduce((a, b) => a + b ));
-
-    const [proteinTypes, setProtienTypes] = useState(props.diet.protein.types); //["chicken", "beef", "fish"]
-    const [proteinQuantity, setProtienQuantity] = useState(props.diet.protein.quantity); // [1, 2, 3]
-    const [carbsTypes, setCarbsTypes] = useState(props.diet.carbs.types);
-    const [carbsQuantity, setCarbsQuantity] = useState(props.diet.carbs.quantity);
-    const [fatTypes, setFatTypes] = useState(props.diet.fat.types);
-    const [fatQuantity, setFatQuantity] = useState(props.diet.fat.quantity);
+    let [data, setData] = useState([]);
+    // let [canRender, setCanRender] = useState(false);
     
     const generateList = (macronutrient, quantity) => {
         return `
@@ -32,26 +21,69 @@ const InteractiveChart = (props) => {
           </ul>
         `;
       };
-    const[data, setData] = useState([
-        ["Task", "Hours per Day", { role: "tooltip", type: "string", p: { html: true } }],
 
-        ["Protein", protein, `<h1> Protein: <span>${protein} g <span> </h1> ${generateList(proteinTypes, proteinQuantity) }`],
-        ["Carbohydrates", carbs, `<h1> Carboydrates: <span>${carbs} g <span> </h1> ${generateList(carbsTypes, carbsQuantity) }`],
-        ["Fat", fat, `<h1> Fat: <span>${fat} g <span> </h1> ${generateList(fatTypes, fatQuantity) }`],
-    ]);
+    const strContentParse = (text) => {
+
+        let item_list = []
+        let quant_list = []
+        let txt_list = text.split("\n");
+        for (let i = 0; i < txt_list.length; i++) {
+          let listing = txt_list[i].split(", ")
+          item_list.push(listing[0])
+          quant_list.push(parseInt(listing[1]))
+        }
+        return [item_list, quant_list];
+      }
+
 
     useEffect(() => {
-        console.log('hi');
 
-    }, [protein, carbs, fat, proteinTypes, proteinQuantity, carbsTypes, carbsQuantity, fatTypes, fatQuantity]);
+      if (Object.keys(props.form_data).length !== 0) {
+        // console.log(JSON.stringify(props.form_data));
+        console.log(props.form_data.carbohydrates);
+        console.log(props.form_data.proteins);
+        console.log(props.form_data.fats);
+        console.log(strContentParse(props.form_data.carbohydrates));
+        console.log(strContentParse(props.form_data.proteins));
+        console.log(strContentParse(props.form_data.fats));
+        const [carbTypes, carb_quant] = strContentParse(props.form_data.carbohydrates);
+        const carbsum = carb_quant.reduce((a, b) => a + b );
+
+        const [fatTypes, fat_quant] = strContentParse(props.form_data.fats);
+        const fatsum = fat_quant.reduce((a, b) => a + b );
+
+        const [protTypes, prot_quant] = strContentParse(props.form_data.proteins);
+        const protsum = prot_quant.reduce((a, b) => a + b );
+
+    
+        setData( [ ["Task", "Hours per Day", { role: "tooltip", type: "string", p: { html: true } }],
+
+            ["Protein", protsum, `<h3> Protein: ${protsum} g  </h3> 
+              ${generateList(protTypes, prot_quant) }`],
+
+            ["Carbohydrates", carbsum, `<h3> Carboydrates: ${carbsum} g  </h3>
+              ${generateList(carbTypes, carb_quant) }`],
+
+            ["Fat", fatsum, `<h3> Fat: ${fatsum} g  </h3>
+              ${generateList(fatTypes, fat_quant) }`],
+
+        ]);
+      }
+
+    }, [props.form_data, props.isLastStep]);
 
 
-    // let data = [
-    //     ["Task", "Hours per Day", { role: "tooltip", type: "string", p: { html: true } }],
+    // let data = [ ["Task", "Hours per Day", { role: "tooltip", type: "string", p: { html: true } }],
 
-    //     ["Protein", 11, `<h1> Protein: <span>${props.nutrition.protein} g <span> </h1> ${generateList(props.diet.protein.types, props.diet.protein.quantity) }`],
-    //     ["Carbohydrates", 2, `<h1> Carboydrates: <span>${props.nutrition.protein} g <span> </h1>`],
-    //     ["Fat", 2, `<h1> Fat: <span>${props.nutrition.protein} g <span> </h1>`],
+    //     ["Protein", 11, `<h1> Protein: <span>${props.diet.protein.quantity.reduce((a, b) => a + b )} g <span> </h1> 
+    //       ${generateList(props.diet.protein.types, props.diet.protein.quantity) }`],
+
+    //     ["Carbohydrates", 2, `<h1> Carboydrates: <span>${props.diet.carbs.quantity.reduce((a, b) => a + b )} g <span> </h1>
+    //       ${generateList(props.diet.carbs.types, props.diet.carbs.quantity) }`],
+
+    //     ["Fat", 2, `<h1> Fat: <span>${props.diet.fat.quantity.reduce((a, b) => a + b )} g <span> </h1>
+    //       ${generateList(props.diet.fat.types, props.diet.fat.quantity) }`],
+
     // ];
       
     const options = {
@@ -63,15 +95,20 @@ const InteractiveChart = (props) => {
         }
     };
 
-    return (
-        <Chart
-          chartType="PieChart"
-          data={data}
-          options={options}
-          width={"100%"}
-          height={"400px"}
-        />
-      );
+    return   <> 
+
+        { 
+          data && data.length > 0 && (
+            <Chart
+              chartType="PieChart"
+              data={data}
+              options={options}
+              width={"100%"}
+              height={"400px"}
+            />
+          )
+        }
+      </>
 }
 
 export default InteractiveChart;

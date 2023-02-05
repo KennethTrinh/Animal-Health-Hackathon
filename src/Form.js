@@ -6,6 +6,7 @@ import { Stepper } from '@progress/kendo-react-layout';
 import { PetInfo } from './PetInfo';
 import { MedHistory } from './MedHistory';
 import { Diet } from './Diet';
+import InteractiveChart from './InteractiveChart';
 const stepPages = [PetInfo, MedHistory, Diet];
 
 const MultiStepForm = () => {
@@ -35,9 +36,10 @@ const MultiStepForm = () => {
     }));
     setSteps(currentSteps);
     setStep(() => Math.min(step + 1, lastStepIndex));
-    setFormState(values);
+    // setFormState(values);
     if (isLastStep && isPreviousStepsValid && isValid) {
-      alert(JSON.stringify(values));
+    //   alert(JSON.stringify(values));
+        setFormState(values);
     }
   }, [steps, isLastStep, isPreviousStepsValid, step, lastStepIndex]);
   const onPrevClick = React.useCallback(event => {
@@ -53,32 +55,30 @@ const MultiStepForm = () => {
         <Form initialValues={formState} onSubmitClick={onStepSubmit} render={formRenderProps => <div style={{
       alignSelf: 'center'
     }}>
-              <FormElement style={{
-        width: 480
-      }}>
+              <FormElement style={{ width: 480 }}>
                 {stepPages[step]}
-                <span style={{
-          marginTop: '40px'
-        }} className={'k-form-separator'} />
-                <div style={{
-          justifyContent: 'space-between',
-          alignContent: 'center'
-        }} className={'k-form-buttons k-button k-button-md k-rounded-md k-button-solid k-button-solid-bases-end'}>
-                  <span style={{
-            alignSelf: 'center'
-          }}>Step {step + 1} of 3</span>
-                  <div>
-                    {step !== 0 ? <Button style={{
-              marginRight: '16px'
-            }} onClick={onPrevClick}>
-                                            Previous
-                                          </Button> : undefined}
+                <span style={{ marginTop: '40px'}} className={'k-form-separator'} />
+                <div style={{ justifyContent: 'space-between', alignContent: 'center'}} 
+                className={'k-form-buttons k-button k-button-md k-rounded-md k-button-solid k-button-solid-bases-end'}>
+                  <span style={{alignSelf: 'center'}}>Step {step + 1} of 3</span>
+                  <div> {step !== 0 ? <Button style={{marginRight: '16px'}} onClick={onPrevClick}>
+                                        Previous
+                                    </Button> : undefined}
                     <Button themeColor={'primary'} disabled={isLastStep ? !isPreviousStepsValid : false} onClick={formRenderProps.onSubmit}>
                       {isLastStep ? 'Submit' : 'Next'}
                     </Button>
                   </div>
                 </div>
               </FormElement>
+              <InteractiveChart
+                diet={{
+                protein: { types: ["chicken", "beef", "fish"], quantity: [1, 2, 3] },
+                carbs: { types: ["rice", "potatoes", "pasta"], quantity: [1, 2, 3] },
+                fat: { types: ["butter", "oil", "avocado"], quantity: [1, 2, 3] }
+                }}
+                form_data={formState}
+                isLastStep={isLastStep}
+                /> 
             </div>} />
       </div>;
 };

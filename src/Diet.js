@@ -13,11 +13,11 @@ export const Diet = <div>
     layout={'horizontal'} data={feedingStyle} />
 
     <Field key={'carbohydrates'} id={'carbohydrates'} name={'carbohydrates'} label={'Carbohydrates'} component={FormTextArea}
-    hint={'Specify <food>, <amount in grams>'} optional={true}  />
+    hint={'Specify <food>, <amount in grams> per line for every food'} optional={true}  />
     <Field key={'fats'} id={'fats'} name={'fats'} label={'Fats'} component={FormTextArea} 
-    hint={'Specify <food>, <amount in grams>'} optional={true} />
+    hint={'Specify <food>, <amount in grams> per line for every food'} optional={true} />
     <Field key={'proteins'} id={'proteins'} name={'proteins'} label={'Proteins'} component={FormTextArea} 
-    hint={'Specify <food>, <amount in grams>'} optional={true} />
+    hint={'Specify <food>, <amount in grams> per line for every food'} optional={true} />
 
 
   </div>;
