@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/Animal-Health-Hackathon/precache-manifest.f3b0cbd5c2e4e707e28ea060a59066e6.js"
+  "/Animal-Health-Hackathon/precache-manifest.44ee2070c5b29659b44e104d06759277.js"
 );
 
 workbox.clientsClaim();
