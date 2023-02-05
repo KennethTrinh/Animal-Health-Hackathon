@@ -13,8 +13,7 @@ const InteractiveChart = (props) => {
             ${macronutrient.map((item, index) => {
       return `
                 <li>
-                  ${item}: 
-                  <span>${quantity[index]}</span>
+                  ${item}: ${quantity[index]} 
                 </li>
               `;
     }).join('')}
@@ -55,6 +54,19 @@ const InteractiveChart = (props) => {
 
       const [protTypes, prot_quant] = strContentParse(props.form_data.proteins);
       const protsum = prot_quant.reduce((a, b) => a + b);
+    
+        setData( [ ["Macro Nutrient", "Total", { role: "tooltip", type: "string", p: { html: true } }],
+
+            ["Protein", protsum, ` ${generateList(protTypes, prot_quant) }`],
+
+            ["Carbohydrates", carbsum, `${generateList(carbTypes, carb_quant) }`],
+
+            ["Fat", fatsum, `${generateList(fatTypes, fat_quant) }`],
+
+        ]);
+      }
+
+    }, [props.form_data, props.isLastStep]);
 
 
       setData([["Task", "Hours per Day", { role: "tooltip", type: "string", p: { html: true } }],

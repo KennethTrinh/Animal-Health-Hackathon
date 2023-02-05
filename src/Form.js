@@ -37,7 +37,8 @@ const MultiStepForm = () => {
     setSteps(currentSteps);
     setStep(() => Math.min(step + 1, lastStepIndex));
     if (isLastStep && isPreviousStepsValid && isValid) {
-      setFormState(values);
+
+        setFormState( (formState) => { return {...formState, ...values} } );
     }
   }, [steps, isLastStep, isPreviousStepsValid, step, lastStepIndex]);
   const onPrevClick = React.useCallback(event => {

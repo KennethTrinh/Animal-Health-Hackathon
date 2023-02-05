@@ -40,15 +40,36 @@
 ul {
   list-style-type: none;
   padding-left: 0pt;
+  overflow: hidden;
+  word-wrap: break-word;
+  max-width: 500px;  /* adjust as needed */
+  min-width: 100px;  /* adjust as needed */
 }
 
-body {
-  position: relative;
+
+.k-form {
+  font-size: 18px !important;
+}
+
+.k-stepper{
+  font-size: 18px !important;
+}
+
+/* id=title */
+
+#title {
+  font-size: 60px !important; 
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+  margin: 0;
+  padding: 0;
 }
 
 html,
 body {
   height: 100%;
+  position: relative;
 }
 
 my-app {
