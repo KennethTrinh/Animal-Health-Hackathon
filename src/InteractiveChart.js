@@ -69,22 +69,6 @@ const InteractiveChart = (props) => {
     }, [props.form_data, props.isLastStep]);
 
 
-      setData([["Task", "Hours per Day", { role: "tooltip", type: "string", p: { html: true } }],
-
-      ["Protein", protsum, `<h3> Protein: ${protsum} g  </h3> 
-              ${generateList(protTypes, prot_quant)}`],
-
-      ["Carbohydrates", carbsum, `<h3> Carboydrates: ${carbsum} g  </h3>
-              ${generateList(carbTypes, carb_quant)}`],
-
-      ["Fat", fatsum, `<h3> Fat: ${fatsum} g  </h3>
-              ${generateList(fatTypes, fat_quant)}`],
-
-      ]);
-    }
-
-  }, [props.form_data, props.isLastStep]);
-
   const options = {
     title: "Dietary Breakdown",
     is3D: true,
