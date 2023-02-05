@@ -3,22 +3,22 @@ import * as ReactDOM from 'react-dom';
 import { Form, FormElement } from '@progress/kendo-react-form';
 import { Button } from '@progress/kendo-react-buttons';
 import { Stepper } from '@progress/kendo-react-layout';
-import { AccountDetails } from './account-details';
-import { PersonalDetails } from './personal-details';
-import { PaymentDetails } from './payment-details';
-const stepPages = [AccountDetails, PersonalDetails, PaymentDetails];
+import { PetInfo } from './PetInfo';
+import { MedHistory } from './MedHistory';
+import { Diet } from './Diet';
+const stepPages = [PetInfo, MedHistory, Diet];
 
 const MultiStepForm = () => {
   const [step, setStep] = React.useState(0);
   const [formState, setFormState] = React.useState({});
   const [steps, setSteps] = React.useState([{
-    label: 'Account Details',
+    label: 'Pet Info',
     isValid: undefined
   }, {
-    label: 'Personal Details',
+    label: 'Medical History',
     isValid: undefined
   }, {
-    label: 'Payment Details',
+    label: 'Diet',
     isValid: undefined
   }]);
   const lastStepIndex = steps.length - 1;
